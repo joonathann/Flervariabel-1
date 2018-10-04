@@ -16,16 +16,16 @@ class Planet:
 	def doTimeStep(self,dt):
 		self.vx = self.vx + -self.k * self.x / ((self.x **2 + self.y **2)**1.5) * dt #new vx using formula from 2.1
 		self.vy = self.vy + -self.k * self.y / ((self.x **2 + self.y **2)**1.5) * dt #new vy
-		self.x += self.vx * dt
+		self.x += self.vx * dt #calculates the new coordinates
 		self.y += self.vy * dt
-		self.t += dt
+		self.t += dt #total time elapsed
 	
-	def orbitPlot(self,stepSize,time, plot = True):
+	def orbitPlot(self,stepSize,time, plot = True): #method to simplily ploting
 		self.xlist = [self.x]
 		self.ylist = [self.y]
 		
-		while self.t <= time:
-			self.doTimeStep(stepSize)
+		while self.t <= time: #time is the total time to simulate
+			self.doTimeStep(stepSize) #stepSize is the doTimeStep dt
 			self.xlist.append(self.x)
 			self.ylist.append(self.y)
 		
@@ -34,7 +34,7 @@ class Planet:
 			plt.plot(0,0,'r*')
 			plt.axis('equal')
 			
-		elif plot == False:
+		elif plot == False: 
 			return xlist
 
 	def getPeriodAndAxis(self,dt):

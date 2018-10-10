@@ -27,20 +27,6 @@ class PlanetGR:
 		self.x += self.vx * dt #calculates the new coordinates
 		self.y += self.vy * dt
 		self.t += dt #total time elapsed
-	
-    # Returns distance in AU from the planet to the Sun.
-	def getR(self):
-		return math.sqrt(self.x**2 + self.y**2)
-	
-	# Returns the angle between the position of the planet and the positive
-    # x-axis in the range [0, 2 pi)
-	def getAngle(self):
-			x = self.x
-			y = self.y
-			theta = math.atan2(y,x)
-			if theta<0:
-				theta += 2.*math.pi
-			return theta
 
 	def orbitPlot(self,stepSize,time,findPerihelion = False): #method to simplily ploting
 		self.xlist = [self.x]
@@ -49,6 +35,8 @@ class PlanetGR:
 		while self.t <= time: #time is the total time to simulate
 			self.doTimeStep(stepSize) #stepSize is the doTimeStep dt
 			if findPerihelion == True:
+				#If the possition of the perihelion is requested orbitplot will plot
+				#all points that has a radius smaller than both adjacent points.
 				if (self.x**2 + self.y**2) > (self.xlist[-1]**2 + self.ylist[-1]**2) and (self.xlist[-1]**2 + self.ylist[-1]**2) < (self.xlist[-2]**2 + self.ylist[-2]**2):
 					plt.plot(self.xlist[-1], self.ylist[-1], 'rx')
 			self.xlist.append(self.x)
